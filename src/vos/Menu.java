@@ -12,9 +12,6 @@ public class Menu
 	@JsonProperty(value="id")
 	private Long id;
 	
-	@JsonProperty(value="nombre")
-	private String nombre;
-	
 	@JsonProperty(value="costo")
 	private double costo;
 	
@@ -35,10 +32,9 @@ public class Menu
 
 
 
-	public Menu(@JsonProperty(value="id")Long id, @JsonProperty(value="nombre")String nombre,@JsonProperty(value="costo")double costo,@JsonProperty(value="precio")double precio,@JsonProperty(value="restaurante")Restaurante restaurante,@JsonProperty(value="pedido")Pedido pedido,@JsonProperty(value="productos")List<Producto>productos) {
+	public Menu(@JsonProperty(value="id")Long id,@JsonProperty(value="costo")double costo,@JsonProperty(value="precio")double precio,@JsonProperty(value="restaurante")Restaurante restaurante,@JsonProperty(value="pedido")Pedido pedido,@JsonProperty(value="productos")List<Producto>productos) {
 		super();
 		this.id=id;
-		this.nombre=nombre;
 		this.costo=costo;
 		this.precio=precio;
 		this.restaurante=restaurante;
@@ -58,17 +54,6 @@ public class Menu
 		this.id = id;
 	}
 
-
-
-	private String getNombre() {
-		return nombre;
-	}
-
-
-
-	private void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
 
 
 
