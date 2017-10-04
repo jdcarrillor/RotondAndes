@@ -68,7 +68,7 @@ public class DAOTablaRestaurante
 		 * @throws Exception - Cualquier error que no corresponda a la base de datos
 		 */
 		public ArrayList<Restaurante> darRestaurantes() throws SQLException, Exception {
-			ArrayList<Restaurante> videos = new ArrayList<Restaurante>();
+			ArrayList<Restaurante> restaruantes = new ArrayList<Restaurante>();
 
 			String sql = "SELECT * FROM RESTAURANTE";
 
@@ -81,42 +81,23 @@ public class DAOTablaRestaurante
 				Long id = rs.getLong("ID");
 				String representante= rs.getString("REPRESENTANTE");
 				String tipoComida= rs.getString("TIPO_COMIDA");
-				Long idPaginaWeb= rs.getLong("PAGINA_WEB");
-				Long idMenu=rs.getArray(columnIndex)
-				
-				
-				videos.add(new Restaurante(id, name, duration));
+				Long idPaginaWeb= rs.getLong("ID_PAGINAWEB");
+				Long idZona=rs.getLong("ID_ZONE");
+				Restaurante vo = new Restaurante();
+				vo.setId(id);
+				vo.setnombre(name);
+				vo.setrepresentante(representante);
+				vo.settipoComida(tipoComida);
+				vo.setIdPaginaWeb(idPaginaWeb);
+				vo.setIdZona(idZona);
+            restaruantes.add(vo);
 			}
-			return videos;
-		}
-
-
-		/**
-		 * Metodo que busca el/los restaurantes con el nombre que entra como parametro.
-		 * @param name - Nombre de el/los videos a buscar
-		 * @return ArrayList con los videos encontrados
-		 * @throws SQLException - Cualquier error que la base de datos arroje.
-		 * @throws Exception - Cualquier error que no corresponda a la base de datos
-		 */
-		public ArrayList<Restaurante> buscarRestaurantesPorName(String name) throws SQLException, Exception {
-			ArrayList<Restaurante> videos = new ArrayList<Restaurante>();
-
-			String sql = "SELECT * FROM VIDEO WHERE NAME ='" + name + "'";
-
-			PreparedStatement prepStmt = conn.prepareStatement(sql);
-			recursos.add(prepStmt);
-			ResultSet rs = prepStmt.executeQuery();
-
-			while (rs.next()) {
-				String name2 = rs.getString("NAME");
-				Long id = rs.getLong("ID");
-				Integer duration = rs.getInt("DURATION");
-				videos.add(new Restaurante(id, name2, duration));
-			}
-
-			return videos;
+			return restaruantes;
 		}
 		
+		
+
+
 		/**
 		 * Metodo que busca el video con el id que entra como parametro.
 		 * @param name - Id de el video a buscar
@@ -124,24 +105,32 @@ public class DAOTablaRestaurante
 		 * @throws SQLException - Cualquier error que la base de datos arroje.
 		 * @throws Exception - Cualquier error que no corresponda a la base de datos
 		 */
+	
 		public Restaurante buscarRestaurantePorId(Long id) throws SQLException, Exception 
 		{
-			Restaurante video = null;
+			Restaurante restaurante = null;
 
-			String sql = "SELECT * FROM VIDEO WHERE ID =" + id;
+			String sql = "SELECT * FROM RESTAURANTE WHERE ID =" + id;
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
 			ResultSet rs = prepStmt.executeQuery();
 
 			if(rs.next()) {
-				String name = rs.getString("NAME");
+				String name = rs.getString("NOMBRE");
 				Long id2 = rs.getLong("ID");
-				Integer duration = rs.getInt("DURATION");
-				video = new Restaurante(id2, name, duration);
+				String representante = rs.getString("REPRESENTANTE");
+				String tipoComida = rs.getString("TIPO_COMIDA");
+				Long idZona = rs.getLong("ID_ZONA");
+				Long idPaginaWeb = rs.getLong("ID_PAGINAWEB");
+				
+				restaurante = new Restaurante(id2, name, representante, tipoComida, null, null, null, idZona, idPaginaWeb);
+				
+				
+				
 			}
 
-			return video;
+			return restaurante;
 		}
 
 		/**
@@ -152,12 +141,15 @@ public class DAOTablaRestaurante
 		 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo agregar el video a la base de datos
 		 * @throws Exception - Cualquier error que no corresponda a la base de datos
 		 */
-		public void addRestaurante(Restaurante video) throws SQLException, Exception {
+		public void addRestaurante(Restaurante restaurante) throws SQLException, Exception {
 
-			String sql = "INSERT INTO VIDEO VALUES (";
-			sql += video.getId() + ",'";
-			sql += video.getName() + "',";
-			sql += video.getDuration() + ")";
+			String sql = "INSERT INTO Restaurante VALUES (";
+			sql += restaurante.getId() + ",'";
+			sql += restaurante.getnombre() + "',";
+			sql += restaurante.getrepresentante() + "',";
+			sql += restaurante.gettipoComida() + "',";
+			sql += restaurante.getIdZona() + "',";
+			sql += restaurante.getIdPaginaWeb() + "',";
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);
@@ -173,12 +165,15 @@ public class DAOTablaRestaurante
 		 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
 		 * @throws Exception - Cualquier error que no corresponda a la base de datos
 		 */
-		public void updateRestaurante(Restaurante video) throws SQLException, Exception {
+		public void updateRestaurante(Restaurante restaurante) throws SQLException, Exception {
 
 			String sql = "UPDATE VIDEO SET ";
-			sql += "NAME='" + video.getName() + "',";
-			sql += "DURATION=" + video.getDuration();
-			sql += " WHERE ID = " + video.getId();
+			sql += "NOMBRE='" + restaurante.getnombre() + "',";
+			sql += "REPRESENTANTE=" + restaurante.getrepresentante()+ "',";
+			sql += "TIPO_COMIDA=" + restaurante.gettipoComida()+ "',";
+			sql += "ID_ZONA=" + restaurante.getIdZona()+ "',";
+			sql += "ID_PAGINAWEB=" + restaurante.getIdPaginaWeb()+ "',";
+			sql += " WHERE ID = " + restaurante.getId();
 
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
@@ -194,10 +189,10 @@ public class DAOTablaRestaurante
 		 * @throws SQLException - Cualquier error que la base de datos arroje. No pudo actualizar el video.
 		 * @throws Exception - Cualquier error que no corresponda a la base de datos
 		 */
-		public void deleteRestaurante(Restaurante video) throws SQLException, Exception {
+		public void deleteRestaurante(Restaurante restaurante) throws SQLException, Exception {
 
-			String sql = "DELETE FROM VIDEO";
-			sql += " WHERE ID = " + video.getId();
+			String sql = "DELETE FROM RESTAURANTE";
+			sql += " WHERE ID = " + restaurante.getId();
 
 			PreparedStatement prepStmt = conn.prepareStatement(sql);
 			recursos.add(prepStmt);

@@ -28,19 +28,13 @@ public class Restaurante
 	@JsonProperty(value="zona")
 	private Zona zona;
 	
+	@JsonProperty(value="idZona")
+	private Long idZona;
 	
+	@JsonProperty(value="idPaginaWeb")
+	private Long idPaginaWeb;
 	
-	
-	
-	
-	
-	
-
-
-
-
-
-	public Restaurante(@JsonProperty(value="id")Long id, @JsonProperty(value="nombre")String nombre,@JsonProperty(value="representante")String representante,@JsonProperty(value="tipoComida")String tipoComida,@JsonProperty(value="paginaWeb")PaginaWeb paginaWeb,@JsonProperty(value="menus")List<Menu> menus,@JsonProperty(value="zona")Zona zona) {
+	public Restaurante(@JsonProperty(value="id")Long id, @JsonProperty(value="nombre")String nombre,@JsonProperty(value="representante")String representante,@JsonProperty(value="tipoComida")String tipoComida,@JsonProperty(value="paginaWeb")PaginaWeb paginaWeb,@JsonProperty(value="menus")List<Menu> menus,@JsonProperty(value="zona")Zona zona,@JsonProperty(value="idZona")Long idZona, @JsonProperty(value="idPaginaWeb")Long idPaginaWeb ) {
 		super();
 		this.id=id;
 		this.nombre=nombre;
@@ -49,80 +43,103 @@ public class Restaurante
 		this.paginaWeb =paginaWeb;
 		this.menus=menus;
 		this.zona=zona;
+		this.idPaginaWeb=idPaginaWeb;
+		this.idZona= idZona;
 	
 		
 		
 	}
-
-	private Long getId() {
-		return id;
+	public Restaurante()
+	{
+		
 	}
 
 
-
-	private void setId(Long id) {
-		this.id = id;
-	}
-
-
-
-	private String getnombre() {
-		return nombre;
-	}
+	public Long getId() {
+	return id;
+}
 
 
 
-	private void setnombre(String nombre) {
-		this.nombre = nombre;
-	}
+public void setId(Long id) {
+	this.id = id;
+}
 
 
 
-	private String getrepresentante() {
-		return representante;
-	}
+public String getnombre() {
+	return nombre;
+}
 
 
 
-	private void setrepresentante(String representante) {
-		this.representante = representante;
-	}
+public void setnombre(String nombre) {
+	this.nombre = nombre;
+}
 
 
 
-	private String gettipoComida() {
-		return tipoComida;
-	}
+public String getrepresentante() {
+	return representante;
+}
 
 
 
-	private void settipoComida(String tipoComida) {
-		this.tipoComida = tipoComida;
-	}
+public void setrepresentante(String representante) {
+	this.representante = representante;
+}
 
-	private PaginaWeb getpaginaWeb() {
-		return paginaWeb;
-	}
 
-	private void setpaginaWeb(PaginaWeb paginaWeb) {
-		this.paginaWeb = paginaWeb;
-	}
 
-	private List<Menu> getmenu() {
-		return menus;
-	}
+public String gettipoComida() {
+	return tipoComida;
+}
 
-	private void setmenu(List<Menu> menus) {
-		this.menus = menus;
-	}
 
-	private Zona getzona() {
-		return zona;
-	}
 
-	private void setzona(Zona zona) {
-		this.zona = zona;
-	}
+public void settipoComida(String tipoComida) {
+	this.tipoComida = tipoComida;
+}
+
+public PaginaWeb getpaginaWeb() {
+	return paginaWeb;
+}
+
+public void setpaginaWeb(PaginaWeb paginaWeb) {
+	this.paginaWeb = paginaWeb;
+}
+
+public List<Menu> getmenu() {
+	return menus;
+}
+
+public void setmenu(List<Menu> menus) {
+	this.menus = menus;
+}
+
+public Zona getzona() {
+	return zona;
+}
+
+public void setzona(Zona zona) {
+	this.zona = zona;
+}
+
+public Long getIdZona() {
+	return idZona;
+}
+
+public void setIdZona(Long idZona) {
+	this.idZona = idZona;
+}
+
+public Long getIdPaginaWeb() {
+	return idPaginaWeb;
+}
+
+public void setIdPaginaWeb(Long idPaginaWeb) {
+	this.idPaginaWeb = idPaginaWeb;
+}
 
 	
 }
